@@ -1,10 +1,10 @@
 Package: lorcanadb
-Title: What the Package Does (One Line, Title Case)
+Title: Contain Informaition of All Lorcana Cards
 Version: 0.0.0.9000
 Authors@R: 
     person("Emil", "Hvitfeldt", , "emil.hvitfeldt@posit.co", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-0679-1945"))
-Description: What the package does (one paragraph).
+Description: Contains information of all lorcana cards.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
