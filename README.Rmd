@@ -1,0 +1,92 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# lorcanadb
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of lorcanadb is to provide information of [Lorcana TCG cards](https://www.disneylorcana.com/en-US) in a format ready for analysis.
+
+## Installation
+
+You can install the development version of lorcanadb like so:
+
+``` r
+pak::pak("emilhvitfeldt/lorcanadb")
+```
+
+## Example
+
+```{r example}
+library(lorcanadb)
+
+dplyr::glimpse(cards)
+```
+
+The data set is in a data.frame for ease of use
+
+```{r}
+#| message: false
+library(tidyverse)
+
+ink_colors <- c(
+  Amber = "#F4A30B",
+  Amethyst = "#903B7C",
+  Emerald = "#0F8B36",
+  Sapphire = "#008EC3",
+  Ruby = "#D4252D",
+  Steel = "#7C8790"
+)
+
+cards |>
+  count(ink_color) |>
+  ggplot(aes(ink_color, n, fill = ink_color)) +
+  geom_col() +
+  scale_fill_manual(values = ink_colors) +
+  theme_minimal() +
+  labs(
+    title = "Number of cards of each ink color",
+    x = NULL,
+    y = NULL,
+    fill = NULL
+  )
+```
+
+```{r}
+library(tidyverse)
+
+ink_colors <- c(
+  Amber = "#F4A30B",
+  Amethyst = "#903B7C",
+  Emerald = "#0F8B36",
+  Sapphire = "#008EC3",
+  Ruby = "#D4252D",
+  Steel = "#7C8790"
+)
+
+cards |>
+  filter(card_type == "Character") |>
+  drop_na(strength, willpower) |>
+  count(strength, willpower, ink_color) |>
+  ggplot(aes(strength, willpower, color = ink_color, size = n)) +
+  geom_point() +
+  
+  scale_color_manual(values = ink_colors) +
+  theme_minimal() +
+  facet_wrap(~ink_color) +
+  guides(size = "none", color = "none") +
+  labs(title = "Distribution of Strength vs Willpower for different ink colors")
+```
